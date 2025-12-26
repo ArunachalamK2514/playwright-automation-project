@@ -20,10 +20,11 @@ test.beforeAll(async ({browser}) => {
     await context.storageState({path : "state.json"});
     // This is where we set the state to a new context                                                                                                                                                                          
     webContext = await browser.newContext({storageState : "state.json"});
+    await context.close();
 
 });
 
-test.only("Session Storage state test", async () =>{
+test("Session Storage state test", async () =>{
     test.setTimeout(60000);
     // This is where we use the webContext with state to crete new pages
     const page = await webContext.newPage();

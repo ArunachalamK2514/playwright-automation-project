@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only("Client app positive flow using playwright locators", async({page}) => {
+test("Client app positive flow using playwright locators", async({page}) => {
 
     await page.goto("https://rahulshettyacademy.com/client/");
     const usernameLocator = page.getByPlaceholder("email@example.com");

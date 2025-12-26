@@ -30,6 +30,8 @@ test("Client app validate generated OrderID is displayed using API", async ({ pa
     // We need to execute a javascript piece of code to set the token in the local storage of the browser window.
     // This can be done using the addInitScript() method in the page fixture.
 
+    // The second argument (APIResponse.token) is passed as 'tokenValue' to the arrow function
+    // Note: To pass multiple arguments, wrap them in an object (e.g. { token: '...', email: '...' })
     await page.addInitScript(tokenValue => {
         window.localStorage.setItem("token", tokenValue);
     }, APIResponse.token);

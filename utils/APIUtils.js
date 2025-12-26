@@ -20,6 +20,22 @@ class APIUtils {
         return token;
     }
 
+    async getTokenAndUserId() {
+        let resp = {};
+
+        const loginResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",
+            {
+                data: this.loginPayload
+            }
+        );
+        expect(loginResponse.ok()).toBeTruthy();
+        const loginResponseJson = await loginResponse.json();
+        resp.token = await loginResponseJson.token;
+        resp.userID = await loginResponseJson.userId;
+        console.log("Token created is: ", resp.token, " , UserID is: ", resp.userID);
+        return resp;
+    }
+
     async createOrder(ordersPayload) {
         let response = {};
         response.token = await this.getToken();
