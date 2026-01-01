@@ -1,35 +1,36 @@
 import { test, expect } from '@playwright/test';
-import { PageObjectManager} from "../pageobjects/PageObjectManager"
+import { PageObjectManager } from "../pageobjects/PageObjectManager"
 
-const usernameValueToEnter = "arunachalamk1213@gmail.com";
-const passwordValueToEnter = "Arun_learning@13";
-const productToAdd = "ADIDAS ORIGINAL";
+// Convert the json object into String (to avoid any parsing errors) and then parse the json to JS object.
+const dataset = JSON.parse(JSON.stringify(require("../testData/ClientAppPOTestData.json")));
 
-test("Client app positive flow", async ({ page }) => {
+test.describe('E2E Purchase Flow Validations', () => {
+for (const data of dataset){
+test(`Client app positive flow ${data.productToAdd}`, async ({ page }) => {
 
     const POManager = new PageObjectManager(page);
     // Logging in to the application
     const loginPage = POManager.getLoginPage();
     await loginPage.launchApplication();
-    await loginPage.loginToApplication(usernameValueToEnter, passwordValueToEnter);
+    await loginPage.loginToApplication(data.username, data.password);
 
     // Adding product to cart
     const dashboardPage = POManager.getDashboardPage();
     await dashboardPage.logAllItems();
-    await dashboardPage.addProductToCart(productToAdd);
-    
+    await dashboardPage.addProductToCart(data.productToAdd);
+
     await expect(dashboardPage.productAddedSuccessMessage).toBeVisible();
     await expect(dashboardPage.productAddedSuccessMessage).toBeHidden();
 
     // Validations in cart page
     const cartPage = POManager.getCartPage();
     await cartPage.navigateToCartPage();
-    await cartPage.validateItemAddedToCart(productToAdd);
+    await cartPage.validateItemAddedToCart(data.productToAdd);
     await cartPage.navigateToCheckoutPage();
-    
+
     // Checkout flow
     const checkoutPage = POManager.getCheckoutPage();
-    expect(await checkoutPage.userLabelShippingInfo.textContent()).toEqual(usernameValueToEnter);
+    expect(await checkoutPage.userLabelShippingInfo.textContent()).toEqual(data.username);
     await checkoutPage.enterShippingCountry("Ind", "India");
     await checkoutPage.placeOrder();
 
@@ -53,4 +54,6 @@ test("Client app positive flow", async ({ page }) => {
     await expect(orderSummaryPage.orderIdInSummaryPage).toHaveText(trimmedOrderID);
 
 
+});
+}
 });
