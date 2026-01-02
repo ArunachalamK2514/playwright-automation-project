@@ -29,7 +29,7 @@ async function readExcelAndReturnRowAndColumn(worksheet, searchText){
     return output;
 };
 
-test.only("Upload Download excel validation", async ({page}) => {
+test("Upload Download excel validation", async ({page}) => {
     const searchText = "Mango";
     const replaceWithValue = "999";
     await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html");

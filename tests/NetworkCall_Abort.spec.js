@@ -1,6 +1,6 @@
 import { test, expect, request } from "@playwright/test"
 
-test("Network intercept test for Abort", async ({ page }) => {
+test("@APITest Network intercept test for Abort", async ({ page }) => {
     test.setTimeout(60000);
     const usernameLocator = page.locator("#username");
     const passwordLocator = page.locator("[type='password']");

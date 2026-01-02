@@ -10,7 +10,7 @@ test.beforeAll(async () => {
     token = await apiUtils.getToken();
 });
 
-test("Response Network intercept test", async ({ page }) => {
+test("@APITest Response Network intercept test", async ({ page }) => {
 
     console.log("This is a network intercept test for request");
 

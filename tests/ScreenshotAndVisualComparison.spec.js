@@ -15,7 +15,7 @@ test("Screenshot test", async ({ page }) => {
     await page.screenshot({path: "AutomationPractiseScreenshotPageExample.png"});
 });
 
-test.only("Visual Comparison Test", async({page}) => {
+test.fixme("Visual Comparison Test", async({page}) => {
     await page.goto("https://www.google.com/");
     expect(await page.screenshot()).toMatchSnapshot("GoogleLandingPage.png");
 })

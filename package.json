@@ -3,13 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:web": "playwright test --grep @WebTest",
+    "test:API": "playwright test --grep @APITest",
+    "test:SafariNewConfig": "playwright test tests/ClientAppPO.spec.js --config .\\playwright.configCustom.js --project=webkit",
+    "allure:generate": "npx allure generate ./allure-results -o ./allure-report",
+    "allure:open": "npx allure open ./allure-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.9.1",
+    "allure": "^3.0.0",
+    "allure-playwright": "^3.4.3",
     "dotenv": "^17.2.3",
     "exceljs": "^4.4.0"
   }

@@ -1,12 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { PageObjectManager } from "../pageobjects/PageObjectManager"
+import { customTest } from '../utils/CustomTest';
 
 // Convert the json object into String (to avoid any parsing errors) and then parse the json to JS object.
 const dataset = JSON.parse(JSON.stringify(require("../testData/ClientAppPOTestData.json")));
 
+test.describe.configure({mode: "default"});
 test.describe('E2E Purchase Flow Validations', () => {
 for (const data of dataset){
-test(`Client app positive flow ${data.productToAdd}`, async ({ page }) => {
+test(`@WebTest Client app positive flow ${data.productToAdd}`, async ({ page }) => {
 
     const POManager = new PageObjectManager(page);
     // Logging in to the application
@@ -56,4 +58,16 @@ test(`Client app positive flow ${data.productToAdd}`, async ({ page }) => {
 
 });
 }
+});
+
+customTest("Test using custom fixtures - Client App Login", async({page, customDataForOrder}) => {
+    const POManager = new PageObjectManager(page);
+    // Logging in to the application
+    const loginPage = POManager.getLoginPage();
+    await loginPage.launchApplication();
+    await loginPage.loginToApplication(customDataForOrder.username, customDataForOrder.password);
+
+    // Printing all available items
+    const dashboardPage = POManager.getDashboardPage();
+    await dashboardPage.logAllItems();
 });
