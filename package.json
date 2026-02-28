@@ -20,5 +20,8 @@
     "allure-playwright": "^3.4.3",
     "dotenv": "^17.2.3",
     "exceljs": "^4.4.0"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^12.5.0"
   }
 }
